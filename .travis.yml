@@ -25,11 +25,13 @@ compiler:
   - gcc
 
 script:
+  - build_dir=`pwd`
+  - cd .. && mv ${build_dir} ${build_dir}-git
+  - cd ${build_dir}-git
   - srcdir=~/src
-  - _realname=libtre
-  - pkgbuild_repo=https://github.com/Alexpux/MINGW-packages/trunk/mingw-w64-libtre-git
+  - _realname=libtre-git
+  - pkgbuild_repo=https://github.com/Alexpux/MSYS2-packages/trunk/libtre-git
   - svn co ${pkgbuild_repo} ${srcdir}
   - ln -svf ${PWD} ${srcdir}/${_realname}
   - cp ${srcdir}/PKGBUILD ~
-  - msys2run "pacman -S --needed --noconfirm mingw-w64-i686-toolchain"
-  - msys2run "makepkg-mingw -s --noconfirm --noprogressbar --noextract --skippgpcheck -f"
+  - msys2run "makepkg -s --noconfirm --noprogressbar --noextract --skippgpcheck -f"
